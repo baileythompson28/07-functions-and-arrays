@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .space{
+            height: 100%;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        #board{
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;         
+        }
+        .space:hover{
+            background-color: lightgray;
+        }
+        /* #winnerWinnerChickenDinner{
+            color: #b4235a;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        } */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <p id="whosTurn">Player X's turn</p>
+            <div id="board">
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+                <button class="space"></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const spaces = Array.from(document.getElementsByClassName("space"));
+        let currentPlayer = "X";
+        for (const space of spaces) {
+            space.addEventListener("click", handleSpaceClick);
+        }
+
+        function updateTurn() {
+            const turnDisplay = document.getElementById("whosTurn");
+            if (turnDisplay) {
+                turnDisplay.textContent = `Player ${currentPlayer}'s turn`;
+            }
+        }
+
+        function handleSpaceClick(event) {
+            const space = event.target;
+
+            if (space.textContent !== "") {
+                return;
+            }
+            space.textContent = currentPlayer;
+
+            if (checkForWin()) {
+                return;
+            }
+            if (tie()) {
+                return;
+            }
+
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            updateTurn();
+        }
+
+        function checkForWin() {
+            const winPatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (const pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (
+                    spaces[a].textContent &&
+                    spaces[a].textContent === spaces[b].textContent &&
+                    spaces[a].textContent === spaces[c].textContent
+                ) {
+                    winnerWinnerChickenDinner();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function tie() {
+            const fullBoard = spaces.every(space =>
+                space.textContent === "X" || space.textContent === "O");
+            if (fullBoard) {
+                ewTiesSuck();
+                return true;
+            }
+            return false;
+        }
+
+        //add a blinking, or more fun way of alerting who won
+        function winnerWinnerChickenDinner() {
+            alert(`${currentPlayer}'s' has won!!!!`);
+            resetGame();
+        }
+
+        function ewTiesSuck() {
+            alert("It's a tie, no one wins :(");
+            resetGame();
+        }
+
+        function resetGame() {
+            for (const space of spaces) {
+                space.textContent = "";
+            }
+            currentPlayer = "X";
+            updateTurn();
+        }
+        updateTurn();
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        HappyBirthday();
+        HappyBirthdayToYou("Elijah");
+        HapHapHapHappyBirthday("Elijah", false);
+        let sum = doMath(3, 4);
+        console.log(doMath);
+        //functions defined as they are below are "hoisted"
+        //this means they are loaded to memory before all code runs.
+        function HappyBirthday(){
+            console.log("Happy Birthday!")
+        }
+
+        function HappyBirthdayToYou(name){
+            console.log("Happy Birthday To You")
+            console.log("Happy Birthday To You")
+            console.log(`Happy Birthday Dear ${name}`)
+            console.log("Happy Birthday To You")
+        }
+
+        function HapHapHapHappyBirthday(name, loadVideo){
+            console.log("Happy Birthday To You")
+            console.log("Happy Birthday To You")
+            console.log(`Happy Birthday Dear ${name}`)
+            console.log("Happy Birthday To You")
+            if(loadVideo){
+                window.open("https://youtube.com/shorts/bCGa456Ft7I?si=6LSpTkW8IrEJUU38")
+            }
+        }
+
+        function doMath(num1, num2){
+            return num1 + mun2; //notice the return statement
+
+        }
+    </script>
+</body>
+</html>
